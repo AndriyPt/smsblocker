@@ -9,4 +9,6 @@
     <string name="deletePhoneButtonLabel">Delete</string>
     <string name="saveSettingsLabel">Save Settings</string>
     
+    <string name="phone">Phone Number</string>
+    
 </resources>
