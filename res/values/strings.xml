@@ -2,7 +2,11 @@
 <resources>
 
     <string name="app_name">Simple SMS Blocker</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="turnOn">Enabled</string>
+    <string name="blacklist">Blacklist:</string>
+    <string name="addPhoneButtonLabel">Add</string>
+    <string name="editPhoneButtonLabel">Edit</string>
+    <string name="deletePhoneButtonLabel">Delete</string>
+    <string name="saveSettingsLabel">Save Settings</string>
+    
 </resources>
