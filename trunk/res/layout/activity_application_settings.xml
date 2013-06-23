@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,9 +8,70 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ApplicationSettings" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/turnOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turnOn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/blacklist" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <ListView
+                android:id="@+id/blackList"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_list_view_margin"
+                android:background="@drawable/list_view_border"
+                tools:ignore="NestedScrolling" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/addPhoneButton"
+                    android:layout_width="@dimen/activity_action_button_width"
+                    android:layout_height="@dimen/activity_action_button_height"
+                    android:layout_margin="@dimen/activity_action_button_margin"
+                    android:text="@string/addPhoneButtonLabel" />
+
+                <Button
+                    android:id="@+id/editPhoneButton"
+                    android:layout_width="@dimen/activity_action_button_width"
+                    android:layout_height="@dimen/activity_action_button_height"
+                    android:layout_margin="@dimen/activity_action_button_margin"
+                    android:text="@string/editPhoneButtonLabel" />
+
+                <Button
+                    android:id="@+id/deletePhoneButton"
+                    android:layout_width="@dimen/activity_action_button_width"
+                    android:layout_height="@dimen/activity_action_button_height"
+                    android:layout_margin="@dimen/activity_action_button_margin"
+                    android:text="@string/deletePhoneButtonLabel" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/saveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_action_button_height"
+            android:layout_margin="@dimen/activity_action_button_margin"
+            android:text="@string/saveSettingsLabel" />
+    </LinearLayout>
+
+</ScrollView>
