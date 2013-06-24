@@ -1,15 +1,13 @@
 package org.sms.blocker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.sms.blocker.dialog.AddEditPhoneDialog;
 import org.sms.blocker.dialog.ConfirmationDialog;
+import org.sms.blocker.settings.UserSettings;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -26,17 +24,13 @@ public class ApplicationSettings extends Activity {
 
     private static final String TAG = ApplicationSettings.class.getSimpleName();
 
-    private static final String PREFERENCES_NAME = "SimpleSMSBlockerPreferencesFile";
-
-    private static final String SETTINGS_TURNED_ON = "TurnedOn";
-    private static final String SETTINGS_PHONES_LIST = "PhonesList";
-    private static final String SETTINGS_PHONES_SEPARATOR = "|";
-
     private List<String> blacklistItems = new ArrayList<String>();
 
     private ArrayAdapter<String> blacklistDataAdapter;
 
     private ListView blackListView;
+
+    private UserSettings userSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +38,12 @@ public class ApplicationSettings extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application_settings);
 
-        Log.v(TAG, "Loading user settings...");
-        final SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        this.userSettings = new UserSettings(this);
 
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
-        turnOn.setChecked(preferences.getBoolean(SETTINGS_TURNED_ON, true));
+        turnOn.setChecked(this.userSettings.isTurnedOn());
 
-        final String phones = preferences.getString(SETTINGS_PHONES_LIST, "");
-        final String[] phonesArray = phones.split(Pattern.quote(SETTINGS_PHONES_SEPARATOR));
-        blacklistItems = new ArrayList<String>(Arrays.asList(phonesArray));
+        blacklistItems = this.userSettings.getBlacklist();
 
         blackListView = (ListView)findViewById(R.id.blackList);
 
@@ -148,9 +139,11 @@ public class ApplicationSettings extends Activity {
                 @Override
                 public void onSuccess(final String phone) {
 
-                    listItems.set(listPosition, phone);
-                    adapter.notifyDataSetChanged();
-                    Log.v(TAG, "Successfully process edit event for phone");
+                    if ((null != phone) && (phone.trim().length() > 0)) {
+                        listItems.set(listPosition, phone.trim());
+                        adapter.notifyDataSetChanged();
+                        Log.v(TAG, "Successfully process edit event for phone");
+                    }
                 }
 
                 @Override
@@ -169,9 +162,11 @@ public class ApplicationSettings extends Activity {
             @Override
             public void onSuccess(final String phone) {
 
-                listItems.add(phone);
-                adapter.notifyDataSetChanged();
-                Log.v(TAG, "Successfully process add event for phone");
+                if ((null != phone) && (phone.trim().length() > 0)) {
+                    listItems.add(phone.trim());
+                    adapter.notifyDataSetChanged();
+                    Log.v(TAG, "Successfully process add event for phone");
+                }
             }
 
             @Override
@@ -181,24 +176,7 @@ public class ApplicationSettings extends Activity {
     }
 
     protected void onSaveSettingsMenuClicked() {
-
-        Log.v(TAG, "Saving user settings...");
-        final SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
-        final SharedPreferences.Editor editor = preferences.edit();
-
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
-        editor.putBoolean(SETTINGS_TURNED_ON, turnOn.isChecked());
-
-        final StringBuilder phonesList = new StringBuilder();
-        for (int i = 0; i < this.blacklistItems.size(); i++) {
-            if (i > 0) {
-                phonesList.append(SETTINGS_PHONES_SEPARATOR);
-            }
-            phonesList.append(this.blacklistItems.get(i));
-        }
-
-        editor.putString(SETTINGS_PHONES_LIST, phonesList.toString());
-        editor.commit();
-        Log.v(TAG, "Saved user settings");
+        this.userSettings.save(turnOn.isChecked(), this.blacklistItems);
     }
 }
