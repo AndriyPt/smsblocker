@@ -1,13 +1,15 @@
 package org.sms.blocker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.sms.blocker.dialog.AddEditPhoneDialog;
-import org.sms.blocker.dialog.Alert;
 import org.sms.blocker.dialog.ConfirmationDialog;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -17,13 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 public class ApplicationSettings extends Activity {
 
     private static final String TAG = ApplicationSettings.class.getSimpleName();
 
-    private ArrayList<String> blacklistItems = new ArrayList<String>();
+    private static final String PREFERENCES_NAME = "SimpleSMSBlockerPreferencesFile";
+
+    private static final String SETTINGS_TURNED_ON = "TurnedOn";
+    private static final String SETTINGS_PHONES_LIST = "PhonesList";
+    private static final String SETTINGS_PHONES_SEPARATOR = "|";
+
+    private List<String> blacklistItems = new ArrayList<String>();
 
     private ArrayAdapter<String> blacklistDataAdapter;
 
@@ -35,9 +44,17 @@ public class ApplicationSettings extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application_settings);
 
+        Log.v(TAG, "Loading user settings...");
+        final SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+
+        final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
+        turnOn.setChecked(preferences.getBoolean(SETTINGS_TURNED_ON, true));
+
+        final String phones = preferences.getString(SETTINGS_PHONES_LIST, "");
+        final String[] phonesArray = phones.split(Pattern.quote(SETTINGS_PHONES_SEPARATOR));
+        blacklistItems = new ArrayList<String>(Arrays.asList(phonesArray));
+
         blackListView = (ListView)findViewById(R.id.blackList);
-        blackListView.setItemsCanFocus(false);
-        blackListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         blacklistDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.blacklistItems);
         blackListView.setAdapter(this.blacklistDataAdapter);
@@ -164,6 +181,24 @@ public class ApplicationSettings extends Activity {
     }
 
     protected void onSaveSettingsMenuClicked() {
-        Alert.show(this, "Hello World");
+
+        Log.v(TAG, "Saving user settings...");
+        final SharedPreferences preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+        final SharedPreferences.Editor editor = preferences.edit();
+
+        final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
+        editor.putBoolean(SETTINGS_TURNED_ON, turnOn.isChecked());
+
+        final StringBuilder phonesList = new StringBuilder();
+        for (int i = 0; i < this.blacklistItems.size(); i++) {
+            if (i > 0) {
+                phonesList.append(SETTINGS_PHONES_SEPARATOR);
+            }
+            phonesList.append(this.blacklistItems.get(i));
+        }
+
+        editor.putString(SETTINGS_PHONES_LIST, phonesList.toString());
+        editor.commit();
+        Log.v(TAG, "Saved user settings");
     }
 }
