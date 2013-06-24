@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.sms.blocker.dialog.AddEditPhoneDialog;
 import org.sms.blocker.dialog.Alert;
+import org.sms.blocker.dialog.ConfirmationDialog;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -42,13 +43,13 @@ public class ApplicationSettings extends Activity {
         blackListView.setAdapter(this.blacklistDataAdapter);
         registerForContextMenu(blackListView);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_application_settings_menu, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -62,7 +63,7 @@ public class ApplicationSettings extends Activity {
             return super.onOptionsItemSelected(item);
         }
         return true;
-    }    
+    }
 
     @Override
     public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
@@ -98,7 +99,24 @@ public class ApplicationSettings extends Activity {
     }
 
     protected void onDeleteBlacklistItemMenuClick(final int listPosition) {
-        // TODO Auto-generated method stub
+
+        final List<String> listItems = this.blacklistItems;
+        final ArrayAdapter<String> adapter = this.blacklistDataAdapter;
+
+        ConfirmationDialog.show(String.format(getString(R.string.deletePhoneMessage), listItems.get(listPosition)),
+            getString(R.string.deletePhoneMenuLabel), this, new ConfirmationDialog.DialogResultListener() {
+
+                @Override
+                public void onDismiss() {
+                }
+
+                @Override
+                public void onConfirm() {
+                    listItems.remove(listPosition);
+                    adapter.notifyDataSetChanged();
+                    Log.v(TAG, "Successfully process delete event for phone");
+                }
+            });
 
     }
 
