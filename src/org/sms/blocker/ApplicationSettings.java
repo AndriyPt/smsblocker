@@ -122,7 +122,7 @@ public class ApplicationSettings extends Activity {
                 public void onConfirm() {
                     listItems.remove(listPosition);
                     adapter.notifyDataSetChanged();
-                    Log.v(TAG, "Successfully process delete event for phone");
+                    Log.d(TAG, "Successfully process delete event for phone");
                 }
             });
 
@@ -142,7 +142,7 @@ public class ApplicationSettings extends Activity {
                     if ((null != phone) && (phone.trim().length() > 0)) {
                         listItems.set(listPosition, phone.trim());
                         adapter.notifyDataSetChanged();
-                        Log.v(TAG, "Successfully process edit event for phone");
+                        Log.d(TAG, "Successfully process edit event for phone");
                     }
                 }
 
@@ -165,7 +165,7 @@ public class ApplicationSettings extends Activity {
                 if ((null != phone) && (phone.trim().length() > 0)) {
                     listItems.add(phone.trim());
                     adapter.notifyDataSetChanged();
-                    Log.v(TAG, "Successfully process add event for phone");
+                    Log.d(TAG, "Successfully process add event for phone");
                 }
             }
 
