@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/addPhoneToBlacklistMenuItem"
+          android:title="@string/addPhoneToBlacklist"/>
+    
+    <item android:id="@+id/saveSettingsMenuItem"
+          android:title="@string/saveSettingsLabel"/>
+    
+</menu>

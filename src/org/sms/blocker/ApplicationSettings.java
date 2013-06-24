@@ -11,29 +11,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 public class ApplicationSettings extends Activity {
 
-    private static final String TAG = "ApplicationSettings";
+    private static final String TAG = ApplicationSettings.class.getSimpleName();
 
     private ArrayList<String> blacklistItems = new ArrayList<String>();
 
     private ArrayAdapter<String> blacklistDataAdapter;
 
     private ListView blackListView;
-
-    private Button addBlacklistItemButton;
-    private Button saveSettingsButton;
-
-    private Button findButtom(final int id) {
-        return (Button)findViewById(id);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +41,28 @@ public class ApplicationSettings extends Activity {
         blacklistDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.blacklistItems);
         blackListView.setAdapter(this.blacklistDataAdapter);
         registerForContextMenu(blackListView);
-
-        addBlacklistItemButton = findButtom(R.id.addPhoneButton);
-
-        saveSettingsButton = findButtom(R.id.saveSettings);
-
-        addBlacklistItemButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                onAddBlacklistItemButtonClick();
-            }
-        });
-
-        saveSettingsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onSaveSettingsButtonClicked();
-            }
-        });
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_application_settings_menu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (R.id.addPhoneToBlacklistMenuItem == item.getItemId()) {
+            onAddBlacklistItemButtonClick();
+        }
+        else if (R.id.saveSettingsMenuItem == item.getItemId()) {
+            onSaveSettingsMenuClicked();
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }    
 
     @Override
     public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
@@ -86,8 +82,6 @@ public class ApplicationSettings extends Activity {
     @Override
     public boolean onContextItemSelected(final MenuItem item) {
 
-        super.onContextItemSelected(item);
-
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
         if (item.getTitle().equals(getString(R.string.editPhoneMenuLabel))) {
@@ -95,6 +89,9 @@ public class ApplicationSettings extends Activity {
         }
         else if (item.getTitle().equals(getString(R.string.deletePhoneMenuLabel))) {
             onDeleteBlacklistItemMenuClick(info.position);
+        }
+        else {
+            super.onContextItemSelected(item);
         }
 
         return true;
@@ -148,7 +145,7 @@ public class ApplicationSettings extends Activity {
         });
     }
 
-    protected void onSaveSettingsButtonClicked() {
+    protected void onSaveSettingsMenuClicked() {
         Alert.show(this, "Hello World");
     }
 }
