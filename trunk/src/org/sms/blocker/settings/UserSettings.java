@@ -22,7 +22,7 @@ public class UserSettings {
     private SharedPreferences preferences;
 
     public UserSettings(final Context context) {
-        Log.i(TAG, "Loading user settings...");
+        Log.d(TAG, "Loading user settings...");
         preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
@@ -38,7 +38,7 @@ public class UserSettings {
     
     public void save(final boolean isTurnedOn, final List<String> blacklist) {
         
-        Log.v(TAG, "Saving user settings...");
+        Log.d(TAG, "Saving user settings...");
         final SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(SETTINGS_TURNED_ON, isTurnedOn);
@@ -53,7 +53,7 @@ public class UserSettings {
 
         editor.putString(SETTINGS_PHONES_LIST, phonesList.toString());
         editor.commit();
-        Log.v(TAG, "Saved user settings");
+        Log.d(TAG, "Saved user settings");
     }
 
 }
