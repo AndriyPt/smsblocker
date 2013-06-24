@@ -6,8 +6,4 @@
     
     <dimen name="activity_list_view_margin">2dp</dimen>
     
-    <dimen name="activity_action_button_margin">2dp</dimen>
-    <dimen name="activity_action_button_width">65dp</dimen>
-    <dimen name="activity_action_button_height">40dp</dimen>
-    
 </resources>
