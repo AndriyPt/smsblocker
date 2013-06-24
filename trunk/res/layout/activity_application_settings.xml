@@ -50,20 +50,6 @@
                     android:layout_height="@dimen/activity_action_button_height"
                     android:layout_margin="@dimen/activity_action_button_margin"
                     android:text="@string/addPhoneButtonLabel" />
-
-                <Button
-                    android:id="@+id/editPhoneButton"
-                    android:layout_width="@dimen/activity_action_button_width"
-                    android:layout_height="@dimen/activity_action_button_height"
-                    android:layout_margin="@dimen/activity_action_button_margin"
-                    android:text="@string/editPhoneButtonLabel" />
-
-                <Button
-                    android:id="@+id/deletePhoneButton"
-                    android:layout_width="@dimen/activity_action_button_width"
-                    android:layout_height="@dimen/activity_action_button_height"
-                    android:layout_margin="@dimen/activity_action_button_margin"
-                    android:text="@string/deletePhoneButtonLabel" />
             </LinearLayout>
         </LinearLayout>
 

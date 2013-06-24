@@ -5,8 +5,8 @@
     <string name="turnOn">Enabled</string>
     <string name="blacklist">Blacklist:</string>
     <string name="addPhoneButtonLabel">Add</string>
-    <string name="editPhoneButtonLabel">Edit</string>
-    <string name="deletePhoneButtonLabel">Delete</string>
+    <string name="editPhoneMenuLabel">Edit</string>
+    <string name="deletePhoneMenuLabel">Delete</string>
     <string name="saveSettingsLabel">Save Settings</string>
     
     <string name="phone">Phone Number</string>
