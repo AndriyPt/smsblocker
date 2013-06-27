@@ -48,6 +48,21 @@ public class SmsFilter extends BroadcastReceiver {
 
                 abortBroadcast();
             }
+            else {
+                List<String> latestSmsSenders = userSettings.getLastestSmsSenders();
+                final int senderIndex = latestSmsSenders.indexOf(message.getDisplayOriginatingAddress());
+                if (senderIndex >= 0) {
+                    latestSmsSenders.remove(senderIndex);
+                    latestSmsSenders.add(0, message.getDisplayOriginatingAddress());
+                }
+                else {
+                    latestSmsSenders.add(0, message.getDisplayOriginatingAddress());
+                    while (latestSmsSenders.size() > GeneralConstants.LATEST_SMS_SENDERS_MAX_COUNT) {
+                        latestSmsSenders.remove(latestSmsSenders.size() - 1);
+                    }
+                }
+                userSettings.save(latestSmsSenders);
+            }
         }
     }
 

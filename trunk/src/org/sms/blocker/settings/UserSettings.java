@@ -16,8 +16,9 @@ public class UserSettings {
     private static final String PREFERENCES_NAME = "SimpleSMSBlockerPreferencesFile";
 
     private static final String SETTINGS_TURNED_ON = "TurnedOn";
-    private static final String SETTINGS_PHONES_LIST = "PhonesList";
-    private static final String SETTINGS_PHONES_SEPARATOR = "|";
+    private static final String SETTINGS_BLACKLIST = "BlackList";
+    private static final String SETTINGS_LATEST_SMS_SENDERS = "LatestSmsSenders";
+    private static final String SETTINGS_STRINGS_SEPARATOR = "|";
 
     private SharedPreferences preferences;
 
@@ -30,30 +31,58 @@ public class UserSettings {
         return preferences.getBoolean(SETTINGS_TURNED_ON, true);
     }
 
-    public List<String> getBlacklist() {
-        final String phones = preferences.getString(SETTINGS_PHONES_LIST, "");
-        final String[] phonesArray = phones.split(Pattern.quote(SETTINGS_PHONES_SEPARATOR));
-        return new ArrayList<String>(Arrays.asList(phonesArray));
+    private List<String> getStringListPropertyValue(final String settingName) {
+        final String strings = preferences.getString(settingName, "");
+        List<String> result;
+        if ((null == strings) || (0 == strings.trim().length())) {
+            result = new ArrayList<String>();
+        }
+        else {
+            final String[] stringsArray = strings.split(Pattern.quote(SETTINGS_STRINGS_SEPARATOR));
+            result = new ArrayList<String>(Arrays.asList(stringsArray));
+        }
+        return result;
     }
-    
+
+    private String saveStringListPropertyToString(final List<String> value) {
+
+        final StringBuilder result = new StringBuilder();
+        for (int i = 0; i < value.size(); i++) {
+            if (i > 0) {
+                result.append(SETTINGS_STRINGS_SEPARATOR);
+            }
+            result.append(value.get(i));
+        }
+        return result.toString();
+    }
+
+    public List<String> getBlacklist() {
+        return getStringListPropertyValue(SETTINGS_BLACKLIST);
+    }
+
+    public List<String> getLastestSmsSenders() {
+        return getStringListPropertyValue(SETTINGS_LATEST_SMS_SENDERS);
+    }
+
     public void save(final boolean isTurnedOn, final List<String> blacklist) {
-        
+
         Log.d(TAG, "Saving user settings...");
         final SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(SETTINGS_TURNED_ON, isTurnedOn);
 
-        final StringBuilder phonesList = new StringBuilder();
-        for (int i = 0; i < blacklist.size(); i++) {
-            if (i > 0) {
-                phonesList.append(SETTINGS_PHONES_SEPARATOR);
-            }
-            phonesList.append(blacklist.get(i));
-        }
-
-        editor.putString(SETTINGS_PHONES_LIST, phonesList.toString());
+        editor.putString(SETTINGS_BLACKLIST, saveStringListPropertyToString(blacklist));
         editor.commit();
         Log.d(TAG, "Saved user settings");
     }
 
+    public void save(final List<String> latestSmsSenders) {
+
+        Log.d(TAG, "Saving latest SMS senders user settings...");
+        final SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString(SETTINGS_LATEST_SMS_SENDERS, saveStringListPropertyToString(latestSmsSenders));
+        editor.commit();
+        Log.d(TAG, "Saved latest SMS senders user settings");
+    }
 }
