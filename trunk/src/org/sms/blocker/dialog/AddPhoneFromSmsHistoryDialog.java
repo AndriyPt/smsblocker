@@ -44,39 +44,42 @@ public class AddPhoneFromSmsHistoryDialog {
             }
             while (cursor.moveToNext());
         }
-
         cursor.close();
 
         return result;
-
     }
 
-    private static List<String> getSmsLog(final Activity activity) {
+    private static List<String> getSmsLog(final List<String> blacklist, final Activity activity) {
 
         final UserSettings userSettings = new UserSettings(activity);
         List<String> result = userSettings.getLastestSmsSenders();
 
+        boolean isInitialization = false;
         if ((null == result) || (0 == result.size())) {
 
             result = getSmsSendersFromInbox(activity);
-            List<String> blacklist = userSettings.getBlacklist();
-            for (int i = result.size() - 1; i >= 0; i--) {
-                if (blacklist.contains(result.get(i))) {
-                    result.remove(i);
-                }
-            }
+            isInitialization = true;
+        }
 
-            while (result.size() > GeneralConstants.LATEST_SMS_SENDERS_MAX_COUNT) {
-                result.remove(result.size() - 1);
+        for (int i = result.size() - 1; i >= 0; i--) {
+            if (blacklist.contains(result.get(i))) {
+                result.remove(i);
             }
+        }
 
+        while (result.size() > GeneralConstants.LATEST_SMS_SENDERS_MAX_COUNT) {
+            result.remove(result.size() - 1);
+        }
+
+        if (isInitialization) {
             userSettings.save(result);
         }
 
         return result;
     }
 
-    public static void show(final Activity activity, final DialogResultListener resultListener) {
+    public static void show(final List<String> blacklist, final Activity activity,
+        final DialogResultListener resultListener) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final LayoutInflater inflater = activity.getLayoutInflater();
@@ -84,7 +87,7 @@ public class AddPhoneFromSmsHistoryDialog {
 
         final ListView phonesToBlockListView = (ListView)dialogView.findViewById(R.id.phonesListToBlock);
 
-        final List<String> latestSmsSendersList = getSmsLog(activity);
+        final List<String> latestSmsSendersList = getSmsLog(blacklist, activity);
 
         phonesToBlockListView.setAdapter(new ArrayAdapter<String>(activity,
             android.R.layout.simple_list_item_single_choice, latestSmsSendersList));
@@ -100,13 +103,7 @@ public class AddPhoneFromSmsHistoryDialog {
                 if (null != resultListener) {
                     final int position = phonesToBlockListView.getCheckedItemPosition();
                     if (0 <= position) {
-                        final String result = latestSmsSendersList.get(position);
-                        UserSettings userSettings = new UserSettings(activity);
-                        final List<String> latestSmsSendersListUpToDate = userSettings.getLastestSmsSenders();
-                        while (latestSmsSendersListUpToDate.remove(result))
-                            ;
-                        userSettings.save(latestSmsSendersListUpToDate);
-                        resultListener.onSuccess(result);
+                        resultListener.onSuccess(latestSmsSendersList.get(position));
                     }
                 }
             }
