@@ -10,5 +10,7 @@
     <string name="saveSettingsLabel">Save Settings</string>
     <string name="phone">Phone Number</string>
     <string name="deletePhoneMessage">Do you really want to delete phone %s?</string>
-
+    
+    <string name="deletedSmsLog">Deleted SMS Log</string>
+    
 </resources>
