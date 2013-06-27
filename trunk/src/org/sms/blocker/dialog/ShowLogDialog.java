@@ -35,7 +35,7 @@ public final class ShowLogDialog {
             inputStream = new BufferedReader(new FileReader(file));
             String line = null;
             while (null != (line = inputStream.readLine())) {
-                result.add(line);
+                result.add(0, line);
             }
             inputStream.close();
         }
