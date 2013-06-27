@@ -34,8 +34,9 @@ public class SmsFilter extends BroadcastReceiver {
             Bundle pudsBundle = intent.getExtras();
             Object[] pdus = (Object[])pudsBundle.get("pdus");
             SmsMessage message = SmsMessage.createFromPdu((byte[])pdus[0]);
+            final List<String> blacklist = userSettings.getBlacklist();
 
-            if (userSettings.getBlacklist().contains(message.getDisplayOriginatingAddress())) {
+            if (blacklist.contains(message.getDisplayOriginatingAddress())) {
 
                 Log.i(TAG, "Deleting SMS from \"" + message.getDisplayOriginatingAddress()
                     + "\" with following text \"" + message.getMessageBody() + "\"");
@@ -50,6 +51,12 @@ public class SmsFilter extends BroadcastReceiver {
             }
             else {
                 List<String> latestSmsSenders = userSettings.getLastestSmsSenders();
+                for (int i = latestSmsSenders.size() - 1; i >=0; i--) {
+                    if (blacklist.contains(latestSmsSenders.get(i))) {
+                        latestSmsSenders.remove(i);
+                    }
+                }
+                
                 final int senderIndex = latestSmsSenders.indexOf(message.getDisplayOriginatingAddress());
                 if (senderIndex >= 0) {
                     latestSmsSenders.remove(senderIndex);

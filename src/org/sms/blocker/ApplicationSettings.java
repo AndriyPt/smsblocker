@@ -164,22 +164,23 @@ public class ApplicationSettings extends Activity {
         final List<String> listItems = this.blacklistItems;
         final ArrayAdapter<String> adapter = this.blacklistDataAdapter;
 
-        AddPhoneFromSmsHistoryDialog.show(this, new AddPhoneFromSmsHistoryDialog.DialogResultListener() {
+        AddPhoneFromSmsHistoryDialog.show(this.blacklistItems, this,
+            new AddPhoneFromSmsHistoryDialog.DialogResultListener() {
 
-            @Override
-            public void onSuccess(final String phone) {
+                @Override
+                public void onSuccess(final String phone) {
 
-                if ((null != phone) && (phone.trim().length() > 0)) {
-                    listItems.add(phone.trim());
-                    adapter.notifyDataSetChanged();
-                    Log.d(TAG, "Successfully process add event for phone");
+                    if ((null != phone) && (phone.trim().length() > 0)) {
+                        listItems.add(0, phone.trim());
+                        adapter.notifyDataSetChanged();
+                        Log.d(TAG, "Successfully process add event for phone");
+                    }
                 }
-            }
 
-            @Override
-            public void onCancel() {
-            }
-        });
+                @Override
+                public void onCancel() {
+                }
+            });
     }
 
     protected void onAddBlacklistItemButtonClick() {
@@ -193,7 +194,7 @@ public class ApplicationSettings extends Activity {
             public void onSuccess(final String phone) {
 
                 if ((null != phone) && (phone.trim().length() > 0)) {
-                    listItems.add(phone.trim());
+                    listItems.add(0, phone.trim());
                     adapter.notifyDataSetChanged();
                     Log.d(TAG, "Successfully process add event for phone");
                 }
