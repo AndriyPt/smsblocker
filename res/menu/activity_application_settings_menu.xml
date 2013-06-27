@@ -4,6 +4,9 @@
     <item android:id="@+id/addPhoneToBlacklistMenuItem"
           android:title="@string/addPhoneToBlacklist"/>
     
+    <item android:id="@+id/showDeletedSmsLog"
+          android:title="@string/deletedSmsLog"/>
+    
     <item android:id="@+id/saveSettingsMenuItem"
           android:title="@string/saveSettingsLabel"/>
     

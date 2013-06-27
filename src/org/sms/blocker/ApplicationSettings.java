@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.sms.blocker.dialog.AddEditPhoneDialog;
 import org.sms.blocker.dialog.ConfirmationDialog;
+import org.sms.blocker.dialog.ShowLogDialog;
 import org.sms.blocker.settings.UserSettings;
 
 import android.app.Activity;
@@ -63,6 +64,9 @@ public class ApplicationSettings extends Activity {
 
         if (R.id.addPhoneToBlacklistMenuItem == item.getItemId()) {
             onAddBlacklistItemButtonClick();
+        }
+        else if (R.id.showDeletedSmsLog == item.getItemId()) {
+            onShowDeletedSmsLog();
         }
         else if (R.id.saveSettingsMenuItem == item.getItemId()) {
             onSaveSettingsMenuClicked();
@@ -174,8 +178,15 @@ public class ApplicationSettings extends Activity {
             }
         });
     }
+    
+
+    private void onShowDeletedSmsLog() {
+        
+        ShowLogDialog.show(this);
+    }
 
     protected void onSaveSettingsMenuClicked() {
+
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
         this.userSettings.save(turnOn.isChecked(), this.blacklistItems);
     }
