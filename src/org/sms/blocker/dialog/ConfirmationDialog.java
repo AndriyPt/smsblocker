@@ -1,7 +1,7 @@
 package org.sms.blocker.dialog;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 
 public final class ConfirmationDialog {
@@ -13,20 +13,21 @@ public final class ConfirmationDialog {
         void onDismiss();
     }
 
-    public static void show(final String message, final Activity activity, final DialogResultListener resultListener) {
+    //TODO: Use android.content.Context instead of activity.
+    public static void show(final String message, final Context context, final DialogResultListener resultListener) {
         
-        if (null != activity) {
-            show(message, activity.getString(android.R.string.dialog_alert_title), activity, resultListener);
+        if (null != context) {
+            show(message, context.getString(android.R.string.dialog_alert_title), context, resultListener);
         }
         else {
-            show(message, "", activity, resultListener);
+            show(message, "", context, resultListener);
         }
     }
 
-    public static void show(final String message, final String title, final Activity activity,
+    public static void show(final String message, final String title, final Context context,
         final DialogResultListener resultListener) {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setTitle(title);
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
