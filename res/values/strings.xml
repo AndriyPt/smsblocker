@@ -5,6 +5,7 @@
     <string name="turnOn">Enabled</string>
     <string name="blacklist">Blacklist:</string>
     <string name="addPhoneToBlacklist">Add to Blacklist</string>
+    <string name="addLatestSmsPhoneToBlacklist">Recent SMS to Blacklist</string>
     <string name="editPhoneMenuLabel">Edit</string>
     <string name="deletePhoneMenuLabel">Delete</string>
     <string name="saveSettingsLabel">Save Settings</string>

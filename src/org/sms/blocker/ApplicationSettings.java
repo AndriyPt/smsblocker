@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.sms.blocker.dialog.AddEditPhoneDialog;
+import org.sms.blocker.dialog.AddPhoneFromSmsHistoryDialog;
 import org.sms.blocker.dialog.ConfirmationDialog;
 import org.sms.blocker.dialog.ShowLogDialog;
 import org.sms.blocker.settings.UserSettings;
@@ -62,7 +63,10 @@ public class ApplicationSettings extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (R.id.addPhoneToBlacklistMenuItem == item.getItemId()) {
+        if (R.id.addLatestSmsPhoneToBlacklistMenuItem == item.getItemId()) {
+            onAddRecentSmsSenderBlacklistItemButtonClick();
+        }
+        else if (R.id.addPhoneToBlacklistMenuItem == item.getItemId()) {
             onAddBlacklistItemButtonClick();
         }
         else if (R.id.showDeletedSmsLog == item.getItemId()) {
@@ -156,6 +160,28 @@ public class ApplicationSettings extends Activity {
             });
     }
 
+    private void onAddRecentSmsSenderBlacklistItemButtonClick() {
+        final List<String> listItems = this.blacklistItems;
+        final ArrayAdapter<String> adapter = this.blacklistDataAdapter;
+
+        AddPhoneFromSmsHistoryDialog.show(this, new AddPhoneFromSmsHistoryDialog.DialogResultListener() {
+
+            @Override
+            public void onSuccess(final String phone) {
+
+                if ((null != phone) && (phone.trim().length() > 0)) {
+                    listItems.add(phone.trim());
+                    adapter.notifyDataSetChanged();
+                    Log.d(TAG, "Successfully process add event for phone");
+                }
+            }
+
+            @Override
+            public void onCancel() {
+            }
+        });
+    }
+
     protected void onAddBlacklistItemButtonClick() {
 
         final List<String> listItems = this.blacklistItems;
@@ -178,10 +204,9 @@ public class ApplicationSettings extends Activity {
             }
         });
     }
-    
 
     private void onShowDeletedSmsLog() {
-        
+
         ShowLogDialog.show(this);
     }
 
