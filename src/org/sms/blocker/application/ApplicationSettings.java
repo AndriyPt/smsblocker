@@ -1,8 +1,9 @@
-package org.sms.blocker;
+package org.sms.blocker.application;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sms.blocker.R;
 import org.sms.blocker.dialog.AddEditPhoneDialog;
 import org.sms.blocker.dialog.AddPhoneFromSmsHistoryDialog;
 import org.sms.blocker.dialog.ConfirmationDialog;
