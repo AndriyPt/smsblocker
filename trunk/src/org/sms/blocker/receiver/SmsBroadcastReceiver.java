@@ -1,4 +1,4 @@
-package org.sms.blocker;
+package org.sms.blocker.receiver;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,12 +20,17 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-public class SmsFilter extends BroadcastReceiver {
+public class SmsBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String TAG = SmsFilter.class.getSimpleName();
+    private static final String TAG = SmsBroadcastReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
+
+        String action = intent.getAction();
+        if (!action.equals("android.provider.Telephony.SMS_RECEIVED")) {
+            return;
+        }
 
         final UserSettings userSettings = new UserSettings(context);
 
@@ -51,12 +56,12 @@ public class SmsFilter extends BroadcastReceiver {
             }
             else {
                 List<String> latestSmsSenders = userSettings.getLastestSmsSenders();
-                for (int i = latestSmsSenders.size() - 1; i >=0; i--) {
+                for (int i = latestSmsSenders.size() - 1; i >= 0; i--) {
                     if (blacklist.contains(latestSmsSenders.get(i))) {
                         latestSmsSenders.remove(i);
                     }
                 }
-                
+
                 final int senderIndex = latestSmsSenders.indexOf(message.getDisplayOriginatingAddress());
                 if (senderIndex >= 0) {
                     latestSmsSenders.remove(senderIndex);

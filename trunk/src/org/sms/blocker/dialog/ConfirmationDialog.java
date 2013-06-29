@@ -13,9 +13,9 @@ public final class ConfirmationDialog {
         void onDismiss();
     }
 
-    //TODO: Use android.content.Context instead of activity.
+    // TODO: Use android.content.Context instead of activity.
     public static void show(final String message, final Context context, final DialogResultListener resultListener) {
-        
+
         if (null != context) {
             show(message, context.getString(android.R.string.dialog_alert_title), context, resultListener);
         }

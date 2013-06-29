@@ -8,9 +8,11 @@ import org.sms.blocker.dialog.AddEditPhoneDialog;
 import org.sms.blocker.dialog.AddPhoneFromSmsHistoryDialog;
 import org.sms.blocker.dialog.ConfirmationDialog;
 import org.sms.blocker.dialog.ShowLogDialog;
+import org.sms.blocker.service.BroadcastListeningService;
 import org.sms.blocker.settings.UserSettings;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -53,6 +55,9 @@ public class ApplicationSettings extends Activity {
         blacklistDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.blacklistItems);
         blackListView.setAdapter(this.blacklistDataAdapter);
         registerForContextMenu(blackListView);
+
+        final Intent startServiceIntent = new Intent(this, BroadcastListeningService.class);
+        this.startService(startServiceIntent);
     }
 
     @Override
