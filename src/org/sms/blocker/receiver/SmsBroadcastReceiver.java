@@ -46,11 +46,14 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                 Log.i(TAG, "Deleting SMS from \"" + message.getDisplayOriginatingAddress()
                     + "\" with following text \"" + message.getMessageBody() + "\"");
 
-                String smsText = message.getMessageBody();
-                smsText = smsText.replace("\r", "").replace("\n", "");
-                final String messageInfo = message.getDisplayOriginatingAddress() + " => " + smsText;
+                if (userSettings.isKeepSmsLog()) {
 
-                writeMessageToLogFile(context, messageInfo);
+                    String smsText = message.getMessageBody();
+                    smsText = smsText.replace("\r", "").replace("\n", "");
+                    final String messageInfo = message.getDisplayOriginatingAddress() + " => " + smsText;
+
+                    writeMessageToLogFile(context, messageInfo);
+                }
 
                 abortBroadcast();
             }

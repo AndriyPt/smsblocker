@@ -16,6 +16,7 @@ public class UserSettings {
     private static final String PREFERENCES_NAME = "SimpleSMSBlockerPreferencesFile";
 
     private static final String SETTINGS_TURNED_ON = "TurnedOn";
+    private static final String SETTINGS_KEEP_SMS_LOG = "KeepSmsLog";
     private static final String SETTINGS_BLACKLIST = "BlackList";
     private static final String SETTINGS_LATEST_SMS_SENDERS = "LatestSmsSenders";
     private static final String SETTINGS_STRINGS_SEPARATOR = "|";
@@ -29,6 +30,10 @@ public class UserSettings {
 
     public boolean isTurnedOn() {
         return preferences.getBoolean(SETTINGS_TURNED_ON, true);
+    }
+
+    public boolean isKeepSmsLog() {
+        return preferences.getBoolean(SETTINGS_KEEP_SMS_LOG, true);
     }
 
     private List<String> getStringListPropertyValue(final String settingName) {
@@ -64,12 +69,14 @@ public class UserSettings {
         return getStringListPropertyValue(SETTINGS_LATEST_SMS_SENDERS);
     }
 
-    public void save(final boolean isTurnedOn, final List<String> blacklist) {
+    public void save(final boolean isTurnedOn, final boolean isKeepSmsLog, final List<String> blacklist) {
 
         Log.d(TAG, "Saving user settings...");
         final SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(SETTINGS_TURNED_ON, isTurnedOn);
+
+        editor.putBoolean(SETTINGS_KEEP_SMS_LOG, isKeepSmsLog);
 
         editor.putString(SETTINGS_BLACKLIST, saveStringListPropertyToString(blacklist));
         editor.commit();
