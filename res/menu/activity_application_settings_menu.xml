@@ -10,6 +10,9 @@
     <item android:id="@+id/showDeletedSmsLog"
           android:title="@string/deletedSmsLog"/>
     
+    <item android:id="@+id/showCleanSmsLog"
+          android:title="@string/cleanSmsLog"/>
+    
     <item android:id="@+id/saveSettingsMenuItem"
           android:title="@string/saveSettingsLabel"/>
     

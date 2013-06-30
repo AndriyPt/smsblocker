@@ -3,7 +3,7 @@
 
     <string name="app_name">Simple SMS Blocker</string>
     <string name="turnOn">Enabled</string>
-    <string name="blacklist">Blacklist:</string>
+    <string name="blacklist">Blacklist</string>
     <string name="addPhoneToBlacklist">Add to Blacklist</string>
     <string name="addLatestSmsPhoneToBlacklist">Recent SMS to Blacklist</string>
     <string name="editPhoneMenuLabel">Edit</string>
@@ -13,5 +13,8 @@
     <string name="deletePhoneMessage">Do you really want to delete phone %s?</string>
     
     <string name="deletedSmsLog">Deleted SMS Log</string>
+    
+    <string name="cleanSmsLog">Clean SMS Log</string>
+    <string name="doYouWantToCleanSmsLog">Do you want to clean SMS log?</string>
     
 </resources>

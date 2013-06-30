@@ -1,9 +1,11 @@
 package org.sms.blocker.application;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.sms.blocker.R;
+import org.sms.blocker.constant.GeneralConstants;
 import org.sms.blocker.dialog.AddEditPhoneDialog;
 import org.sms.blocker.dialog.AddPhoneFromSmsHistoryDialog;
 import org.sms.blocker.dialog.ConfirmationDialog;
@@ -78,6 +80,9 @@ public class ApplicationSettings extends Activity {
         else if (R.id.showDeletedSmsLog == item.getItemId()) {
             onShowDeletedSmsLog();
         }
+        else if (R.id.showCleanSmsLog == item.getItemId()) {
+            onCleanSmsLog();
+        }
         else if (R.id.saveSettingsMenuItem == item.getItemId()) {
             onSaveSettingsMenuClicked();
         }
@@ -139,7 +144,6 @@ public class ApplicationSettings extends Activity {
                     Log.d(TAG, "Successfully process delete event for phone");
                 }
             });
-
     }
 
     protected void onEditBlacklistItemMenuClick(final int listPosition) {
@@ -215,6 +219,27 @@ public class ApplicationSettings extends Activity {
     private void onShowDeletedSmsLog() {
 
         ShowLogDialog.show(this);
+    }
+
+    private void onCleanSmsLog() {
+
+        ConfirmationDialog.show(getString(R.string.doYouWantToCleanSmsLog), getString(R.string.cleanSmsLog), this,
+            new ConfirmationDialog.DialogResultListener() {
+
+                @Override
+                public void onDismiss() {
+                }
+
+                @Override
+                public void onConfirm() {
+
+                    final File file = new File(getFilesDir(), GeneralConstants.DELETED_SMS_LOG_FILE_NAME);
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    Log.d(TAG, "Successfully delete SMS log");
+                }
+            });
     }
 
     protected void onSaveSettingsMenuClicked() {

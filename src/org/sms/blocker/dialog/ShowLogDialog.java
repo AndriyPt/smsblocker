@@ -30,20 +30,22 @@ public final class ShowLogDialog {
 
         final File file = new File(activity.getFilesDir(), GeneralConstants.DELETED_SMS_LOG_FILE_NAME);
 
-        BufferedReader inputStream = null;
-        try {
-            inputStream = new BufferedReader(new FileReader(file));
-            String line = null;
-            while (null != (line = inputStream.readLine())) {
-                result.add(0, line);
+        if (file.exists()) {
+            BufferedReader inputStream = null;
+            try {
+                inputStream = new BufferedReader(new FileReader(file));
+                String line = null;
+                while (null != (line = inputStream.readLine())) {
+                    result.add(0, line);
+                }
+                inputStream.close();
             }
-            inputStream.close();
-        }
-        catch (FileNotFoundException e) {
-            Log.e(TAG, e.getMessage());
-        }
-        catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            catch (FileNotFoundException e) {
+                Log.e(TAG, e.getMessage());
+            }
+            catch (IOException e) {
+                Log.e(TAG, e.getMessage());
+            }
         }
         return result;
     }
