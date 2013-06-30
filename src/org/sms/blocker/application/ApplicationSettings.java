@@ -49,7 +49,7 @@ public class ApplicationSettings extends Activity {
 
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
         turnOn.setChecked(this.userSettings.isTurnedOn());
-        
+
         final CheckBox keepLog = (CheckBox)findViewById(R.id.keepSmsLog);
         keepLog.setChecked(this.userSettings.isKeepSmsLog());
 
@@ -61,8 +61,21 @@ public class ApplicationSettings extends Activity {
         blackListView.setAdapter(this.blacklistDataAdapter);
         registerForContextMenu(blackListView);
 
-        final Intent startServiceIntent = new Intent(this, BroadcastListeningService.class);
-        this.startService(startServiceIntent);
+        updateServiceStatus();
+    }
+
+    private void updateServiceStatus() {
+
+        final Intent serviceIntent = new Intent(this, BroadcastListeningService.class);
+
+        if (this.userSettings.isTurnedOn()) {
+            this.startService(serviceIntent);
+            Log.d(TAG, "Starting service...");
+        }
+        else {
+            this.stopService(serviceIntent);
+            Log.d(TAG, "Stopping service...");
+        }
     }
 
     @Override
@@ -128,7 +141,7 @@ public class ApplicationSettings extends Activity {
         return true;
     }
 
-    protected void onDeleteBlacklistItemMenuClick(final int listPosition) {
+    private void onDeleteBlacklistItemMenuClick(final int listPosition) {
 
         final List<String> listItems = this.blacklistItems;
         final ArrayAdapter<String> adapter = this.blacklistDataAdapter;
@@ -149,7 +162,7 @@ public class ApplicationSettings extends Activity {
             });
     }
 
-    protected void onEditBlacklistItemMenuClick(final int listPosition) {
+    private void onEditBlacklistItemMenuClick(final int listPosition) {
 
         final List<String> listItems = this.blacklistItems;
         final ArrayAdapter<String> adapter = this.blacklistDataAdapter;
@@ -196,7 +209,7 @@ public class ApplicationSettings extends Activity {
             });
     }
 
-    protected void onAddBlacklistItemButtonClick() {
+    private void onAddBlacklistItemButtonClick() {
 
         final List<String> listItems = this.blacklistItems;
         final ArrayAdapter<String> adapter = this.blacklistDataAdapter;
@@ -225,7 +238,7 @@ public class ApplicationSettings extends Activity {
     }
 
     private void onCleanSmsLog() {
-
+        
         ConfirmationDialog.show(getString(R.string.doYouWantToCleanSmsLog), getString(R.string.cleanSmsLog), this,
             new ConfirmationDialog.DialogResultListener() {
 
@@ -245,10 +258,12 @@ public class ApplicationSettings extends Activity {
             });
     }
 
-    protected void onSaveSettingsMenuClicked() {
+    private void onSaveSettingsMenuClicked() {
 
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
         final CheckBox keepLog = (CheckBox)findViewById(R.id.keepSmsLog);
         this.userSettings.save(turnOn.isChecked(), keepLog.isChecked(), this.blacklistItems);
+
+        updateServiceStatus();
     }
 }
