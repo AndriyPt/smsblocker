@@ -27,7 +27,7 @@ public final class AddEditPhoneDialog {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final LayoutInflater inflater = activity.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_add_edit_blacklist_item, null);
-        final EditText phoneEditText = (EditText)dialogView.findViewById(R.id.phoneNumber);
+        final EditText phoneEditText = (EditText)dialogView.findViewById(R.id.contactId);
 
         if (null != phoneNumber) {
             phoneEditText.setText(phoneNumber);
