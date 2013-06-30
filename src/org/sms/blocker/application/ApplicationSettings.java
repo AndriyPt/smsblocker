@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ApplicationSettings extends Activity {
 
@@ -238,7 +239,9 @@ public class ApplicationSettings extends Activity {
     }
 
     private void onCleanSmsLog() {
-        
+
+        final Activity that = this;
+
         ConfirmationDialog.show(getString(R.string.doYouWantToCleanSmsLog), getString(R.string.cleanSmsLog), this,
             new ConfirmationDialog.DialogResultListener() {
 
@@ -254,6 +257,8 @@ public class ApplicationSettings extends Activity {
                         file.delete();
                     }
                     Log.d(TAG, "Successfully delete SMS log");
+
+                    Toast.makeText(that, R.string.toastSmsLogCleaned, Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -263,6 +268,8 @@ public class ApplicationSettings extends Activity {
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
         final CheckBox keepLog = (CheckBox)findViewById(R.id.keepSmsLog);
         this.userSettings.save(turnOn.isChecked(), keepLog.isChecked(), this.blacklistItems);
+
+        Toast.makeText(this, R.string.toastSettingsSaved, Toast.LENGTH_SHORT).show();
 
         updateServiceStatus();
     }

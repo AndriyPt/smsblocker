@@ -20,4 +20,7 @@
     <string name="cleanSmsLog">Clean SMS Log</string>
     <string name="doYouWantToCleanSmsLog">Do you want to clean SMS log?</string>
     
+    <string name="toastSettingsSaved">Settings was saved</string>
+    <string name="toastSmsLogCleaned">SMS log was cleaned</string>
+    
 </resources>
