@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Simple SMS Blocker</string>
+    <string name="app_name">SMS Blocker</string>
     
     <string name="turnOn">Enabled</string>
     <string name="writeDeletedSmsLogText">Write deleted SMS to log</string>
