@@ -49,6 +49,9 @@ public class ApplicationSettings extends Activity {
 
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
         turnOn.setChecked(this.userSettings.isTurnedOn());
+        
+        final CheckBox keepLog = (CheckBox)findViewById(R.id.keepSmsLog);
+        keepLog.setChecked(this.userSettings.isKeepSmsLog());
 
         blacklistItems = this.userSettings.getBlacklist();
 
@@ -245,6 +248,7 @@ public class ApplicationSettings extends Activity {
     protected void onSaveSettingsMenuClicked() {
 
         final CheckBox turnOn = (CheckBox)findViewById(R.id.turnOn);
-        this.userSettings.save(turnOn.isChecked(), this.blacklistItems);
+        final CheckBox keepLog = (CheckBox)findViewById(R.id.keepSmsLog);
+        this.userSettings.save(turnOn.isChecked(), keepLog.isChecked(), this.blacklistItems);
     }
 }

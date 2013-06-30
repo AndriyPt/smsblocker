@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Simple SMS Blocker</string>
+    
     <string name="turnOn">Enabled</string>
+    <string name="writeDeletedSmsLogText">Keep deleted SMS log</string>
+    
     <string name="blacklist">Blacklist</string>
     <string name="addPhoneToBlacklist">Add to Blacklist</string>
     <string name="addLatestSmsPhoneToBlacklist">Recent SMS to Blacklist</string>
