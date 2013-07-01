@@ -1,0 +1,12 @@
+#summary Why do we need such application.
+#labels Phase-Requirements
+
+= Why do we need such application =
+
+Aim of this application is to add ability to block unwanted SMS using minimum subset of permissions and be maximum safe in case of error.
+
+Similar applications 
+
+  * require too many rights
+  * are for blocking SMS and Phone calls not only SMS
+  * too complicated
