@@ -30,6 +30,7 @@
         <receiver android:name="org.sms.blocker.receiver.BootCompleteBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
         
