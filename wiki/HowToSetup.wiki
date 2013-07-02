@@ -19,3 +19,16 @@ Here you can specify following options
  * *Blacklist* - list of banned SMS senders. Use context menu to edit and delete items from this list. Use main menu to add items to this list.
 
 Please note that you need to select *Save Settings* in application menu in order to apply you changes.
+
+==Application Menu==
+
+Menu has following items
+
+[https://smsblocker.googlecode.com/svn/images/SettingsScreenMenu.png]
+
+  * *Recent SMS to Blacklist* - ability to add phone number from recent SMS senders list
+  * *Add to Blacklist* - allows user to add sender manually
+  * ** - 
+  * ** - 
+  * ** - 
+  * ** - 
