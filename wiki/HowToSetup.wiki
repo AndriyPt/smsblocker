@@ -1,0 +1,15 @@
+#summary How to setup
+#labels Phase-Deploy,Featured
+
+=How to setup SMS blocker=
+
+Application is very simple to setup.
+Please run application in order to provide custom settings.
+
+Following screen will appear
+
+[https://smsblocker.googlecode.com/svn/images/SettingsScreen.png]
+
+Here you can specify following options
+
+ * 
