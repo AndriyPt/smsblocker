@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Блокування СМС</string>
+    
+    <string name="turnOn">Ввімкнено</string>
+    <string name="writeDeletedSmsLogText">Писати витерті СМС у лог</string>
+    
+    <string name="blacklist">Чорний список</string>
+    <string name="addPhoneToBlacklist">Заблокувати номер</string>
+    <string name="addLatestSmsPhoneToBlacklist">Останні до чорного списку</string>
+    <string name="editPhoneMenuLabel">Редагувати</string>
+    <string name="deletePhoneMenuLabel">Витерти</string>
+    <string name="saveSettingsLabel">Зберегти</string>
+    <string name="phone">Номер телефону</string>
+    <string name="deletePhoneMessage">Ви дійсно хочете витерти номер %s?</string>
+    
+    <string name="deletedSmsLog">Лог витертих СМС</string>
+    
+    <string name="cleanSmsLog">Очистити лог СМС</string>
+    <string name="doYouWantToCleanSmsLog">Ви дійсно хочете витерти лог СМС?</string>
+    
+    <string name="toastSettingsSaved">Налаштування були збережені</string>
+    <string name="toastSmsLogCleaned">Лог СМС порожній</string>
+    
+</resources>
