@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/addLatestSmsPhoneToBlacklistMenuItem"
+          android:title="@string/addLatestSmsPhoneToBlacklist"/>
+    
+    <item android:id="@+id/addPhoneToBlacklistMenuItem"
+          android:title="@string/addPhoneToBlacklist"/>
+    
+    <item android:id="@+id/showDeletedSmsLog"
+          android:title="@string/deletedSmsLog"/>
+    
+    <item android:id="@+id/showCleanSmsLog"
+          android:title="@string/cleanSmsLog"/>
+    
+    <item android:id="@+id/saveSettingsMenuItem"
+          android:title="@string/saveSettingsLabel"/>
+    
+</menu>
