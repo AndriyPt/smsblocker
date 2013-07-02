@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Блокування СМС</string>
+    <string name="app_name">СМС Фільтр</string>
     
     <string name="turnOn">Ввімкнено</string>
     <string name="writeDeletedSmsLogText">Писати витерті СМС у лог</string>
