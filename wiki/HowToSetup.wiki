@@ -28,7 +28,12 @@ Menu has following items
 
   * *Recent SMS to Blacklist* - ability to add phone number from recent SMS senders list
   * *Add to Blacklist* - allows user to add sender manually
-  * ** - 
-  * ** - 
-  * ** - 
-  * ** - 
+  * *Deleted SMS Log* - show you log of the recently deleted SMS by application
+  * *Clean SMS Log* - remove all entries from recently deleted SMS log 
+  * *Save Settings* - apply changes which was made to application
+
+==Blacklist Context Menu==
+
+In order to delete or edit blacklist entries there is following context menu
+
+[https://smsblocker.googlecode.com/svn/images/SettingsScreenContextMenu.png]
