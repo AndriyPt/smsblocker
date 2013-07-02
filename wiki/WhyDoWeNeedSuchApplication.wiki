@@ -10,3 +10,10 @@ Similar applications
   * require too many rights
   * are for blocking SMS and Phone calls not only SMS
   * too complicated
+
+SMS Blocker requires only three permission
+  * *RECEIVE_BOOT_COMPLETED* to start filtering service when device boots
+  * *READ_SMS* to get phones of the recent SMS
+  * *RECEIVE_SMS* to delete unwanted SMS and do not show notification
+
+ 
